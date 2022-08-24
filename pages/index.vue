@@ -1,6 +1,6 @@
 <template>
 <v-container>
- <div id="app">
+ <div id="app" style="outline-style: dotted; color:red;">
     <select-username
       v-if="!usernameAlreadySelected"
       @input="onUsernameSelection"
