@@ -28,15 +28,11 @@
       <v-spacer />
      
       <v-btn
-        router
-        exact
         to="/"
       >
         <v-icon>mdi-chat</v-icon>
       </v-btn>
       <v-btn
-         router
-        exact
         to="/inspire"
       >
         <v-icon>mdi-account-multiple-plus</v-icon>

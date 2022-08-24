@@ -11,11 +11,9 @@ export default class AuthController {
     return token.toJSON();
   }
   public async register({ request, auth }: HttpContextContract) {
-    const email = request.input("email");
     const password = request.input("password");
-    const name = request.input("name");
+    const name = request.input("username");
     const newUser = new User();
-    newUser.email = email;
     newUser.password = password;
     newUser.username = name;
     await newUser.save();
