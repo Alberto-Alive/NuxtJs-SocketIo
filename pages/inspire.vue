@@ -54,8 +54,8 @@ export default {
         async register() {
             try {
                 await this.$axios.post('register', {
-                    username: this.username,
                     password: this.password,
+                    username: this.username,
                 }).then((response) =>{
                     console.log(response.data)
                 })

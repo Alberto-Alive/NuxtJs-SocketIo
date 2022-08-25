@@ -1,4 +1,5 @@
 import { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
+import {rules, schema} from "@ioc:Adonis/Core/Validator";
 import User from "App/Models/User";
 
 export default class AuthController {
@@ -11,13 +12,26 @@ export default class AuthController {
     return token.toJSON();
   }
   public async register({ request, auth }: HttpContextContract) {
-    const password = request.input("password");
-    const name = request.input("username");
-    const newUser = new User();
-    newUser.password = password;
-    newUser.username = name;
-    await newUser.save();
-    const token = await auth.use("api").login(newUser, {
+    
+    const validationSchema =  schema.create({
+      username: schema.string({trim: true}, [rules.maxLength(255), rules.unique({ table: 'users', column: 'username'})]),
+      password: schema.string({trim: true})
+    })
+    
+    const validatedData = await request.validate({
+      schema: validationSchema
+    })
+    const user = await User.create(validatedData)
+    
+    
+    
+    // const password = request.input("password");
+    // const name = request.input("username");
+    // const newUser = new User();
+    // newUser.password = password;
+    // newUser.username = name;
+    // await newUser.save();
+    const token = await auth.use("api").login(user, {
       expiresIn: "10 days",
     });
     return token.toJSON();
