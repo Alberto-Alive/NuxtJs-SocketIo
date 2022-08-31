@@ -24,7 +24,10 @@
       >
         <v-icon>mdi-minus</v-icon>
       </v-btn>
-      <v-toolbar-title v-text="title" />
+       <div v-if="isAuthenticated">
+        <span> {{ loggedInUser.username }}</span>
+      <v-toolbar-title v-text="`${loggedInUser.username }`" />
+      </div>
       <v-spacer />
      
       <v-btn
@@ -77,6 +80,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   name: 'DefaultLayout',
   data () {
@@ -106,6 +110,9 @@ export default {
     changeToInspire(){
       this.$router.push('/inspire')
     }
+  },
+  computed: {
+    ...mapGetters(['isAuthenticated', 'loggedInUser']),
   }
 }
 </script>

@@ -27,6 +27,17 @@ export default {
     // https: true,
     baseURL: 'http://127.0.0.1:3333/api'
   },
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: { url: 'login', method: 'post', propertyName: 'data.token' },
+          user: { url: 'me', method: 'get', propertyName: 'data' },
+          logout: false,
+        },
+      },
+    },
+  },
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
   ],
@@ -43,7 +54,8 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/axios
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    '@nuxtjs/auth'
   ],
 
 
